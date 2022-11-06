@@ -1,0 +1,10 @@
+{
+  "webpackServerPort": 19006,
+  "expoServerPort": 19000,
+  "packagerPort": 19000,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://5m-y2z.anonymous.breathanaylzer.exp.direct",
+  "packagerNgrokUrl": "https://5m-y2z.anonymous.breathanaylzer.exp.direct",
+  "ngrokPid": 28680,
+  "devToolsPort": 19002
+}
