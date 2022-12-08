@@ -218,6 +218,16 @@ export default (props) => {
         }, 500)
     }
 
+    /*
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !------------------------------------------------------- STYLE
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    */
+
     const dark = false;
 
     let base1 = '#fff';
@@ -376,29 +386,31 @@ export default (props) => {
         },
     });
 
-    const allData = [
-        { title: "Breathanalyzer Data", data: AceData },
-        { title: "Glucometer Data", data: GulData },
-        { title: "Sugar Intaked", data: FoodData }
-    ];
+    //? IDK IF THIS IS 
+    // const getStringDate = (d) => {
+    //     let date = new Date(d);
+    //     let month = date.getMonth() + 1;
+    //     let day = date.getDate();
+    //     let year = date.getFullYear();
+    //     return (month + "/" + day + "/" + year);
+    // }
 
+    // const getStringTime = (d) => {
+    //     let date = new Date(d);
+    //     let hour = date.getHours();
+    //     let minute = date.getMinutes();
+    //     return (hour + ":" + minute);
+    // }
 
-    const getStringDate = (d) => {
-        let date = new Date(d);
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        let year = date.getFullYear();
-        return (month + "/" + day + "/" + year);
-    }
-
-    const getStringTime = (d) => {
-        let date = new Date(d);
-        let hour = date.getHours();
-        let minute = date.getMinutes();
-        return (hour + ":" + minute);
-    }
-
-
+    /*
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !------------------------------------------------------- SUMBITTING
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    */
 
     const [submittingDate, setSubmittingDate] = useState("");
     const [submittingTime, setSubmittingTime] = useState("");
@@ -413,6 +425,10 @@ export default (props) => {
             let healthKey = submittingDate;
             let healthVal = submittingValue;
             const dataArr = healthKey.split("/");
+            console.log(dataArr);
+            //dataArr is equal to the inputted data
+            //health Val is the value inputted
+            //Data type is stuff: gluco, breath, sugar
             healthKey = dataArr[2] + "-" + dataArr[0] + "-" + dataArr[1] + "T" + submittingTime;
             setSubmittingDate("");
             setSubmittingTime("");
@@ -422,58 +438,15 @@ export default (props) => {
         }
     }
 
-    let firstDateChange = true;
-    let firstTimeChange = true;
-    let firstValueChange = true;
-    let previousDate;
-    let previousTime;
-    let previousValue;
-
-    const [editedDate, setEditedDate] = useState("");
-    const [editedTime, setEditedVTime] = useState("");
-    const [editedValue, setEditedValue] = useState(0);
-
-    const editField = (changedTo, prev, index, type, dataType) => {
-        const dataTypes = new Map([
-            ["Breathanalyzer Data", 0],
-            ["Glucometer Data", 3],
-            ["Sugar Intaked", 6]
-        ])
-        let dataTypeIndex = dataTypes.get(dataType);
-
-        // let dateArr = prev.split(/[-T:]+/);
-        // previousDate = dateArr[0] + "-" + dateArr[1] + "-" + dateArr[2];
-        // previousTime = dateArr[3] + ":" + dateArr[4];
-        // previousValue = prev.value;
-        if (type === "date") {
-            QedChanges[dataTypeIndex][index] = changedTo;
-        } else if (type === "time") {
-            QedChanges[dataTypeIndex + 1][index] = changedTo;
-        } else {
-            QedChanges[dataTypeIndex + 2][index] = changedTo;
-        }
-        console.log(QedChanges);
-    }
-
-    const submitEditData = () => {
-        QedChanges.map((dataRow, index1) => {
-            dataRow.map((value, index2) => {
-                if (value != "" || value != -1) {
-                    if (index1 < 3) {
-                        if (index1 === 1 || index1 === 0) {
-                            let temp = AceData[index2].split(/[-T]+/);
-                            if (index1 === 1) {
-                                temp[2];
-                            }
-                        }
-                    }
-
-                }
-            })
-        })
-    }
-
-    const [textd, setTextd] = useState("mm/dd/yyyy");
+    /*
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !------------------------------------------------------- RENDER
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    !--------------------------------------------------------------
+    */
 
     return (
         <>
@@ -508,7 +481,6 @@ export default (props) => {
                                 style={style.addInput}
                                 onChangeText={(i) => { setSubmittingDate(i) }}
 
-                            // onChangeText={(i) => { setSubmittingDate(i) }}
                             />
                             <Text style={style.addTitle}>time: hh:mm</Text>
                             <TextInput

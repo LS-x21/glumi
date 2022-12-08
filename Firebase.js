@@ -32,7 +32,7 @@ function pairDevice(userID){
     set(ref(database, 'users/currPairingUID/'), userID);
 }
 
-function unPair(userID){
+function unPair(){
     update(ref(database, "/users/"), {
         currPairingUID: null
     })
@@ -46,7 +46,6 @@ function updateSettings(userID, isDarkMode){
 }
 
 function writeHealthData(dataType, key, val){
-
     const dataListRef = ref(database, 'users/' + authen.currentUser.uid + '/data/' + dataType + '/' + key);
     let temp = parseFloat(val);
     set(dataListRef, temp);
