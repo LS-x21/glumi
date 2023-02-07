@@ -37,7 +37,7 @@ export default (props) => {
   const convertedAceData = [];
 
   const sliderElements = [
-    <BloodSugarAnalysis />,
+    <BloodSugarAnalysis />,<BloodSugarAnalysis />
   ];
 
   if (BloodData.length < 1) {
@@ -63,28 +63,39 @@ export default (props) => {
 
   const [aceGraph, setAceGraph] = useState(<BloodSugarGraph width={vw * .65} data={convertedAceData} title={"Gulcose Levels (breathanalyzer)"} unit="mg/dL" label={true} />);
 
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const unsubscribe = () => {
+  //       console.log("homepage focused");
+  //       setAceGraph(<BloodSugarGraph width={vw * .65} data={convertedAceData} title={"Gulcose Levels (breathanalyzer)"} unit="mg/dL" label={true} />);
+  //       const darkModeRef = ref(database, 'users/' + authen.currentUser.uid);
+  //       onValue(darkModeRef, (snapshot) => {
+  //         const data = snapshot.val();
+  //         if (data.settings != null) {
+  //           setDark(data.settings.isDarkMode);
+  //         }
+  //       })
+  //     }
+  //     return () => unsubscribe();
+  //   },
+  //   ))
+
+  // onAuthStateChanged(authen, (user) => {
+  //   const unsub = () => { setAceGraph(<BloodSugarGraph width={vw * .65} data={convertedAceData} title={"Gulcose Levels (breathanalyzer)"} unit="mg/dL" label={true} />) };
+  //   return () => unsub();
+  // });
+
+
+  const [reload, setReload] = useState(false);
+  
   useFocusEffect(
     React.useCallback(() => {
-      const unsubscribe = () => {
-        console.log("homepage focused");
-        setAceGraph(<BloodSugarGraph width={vw * .65} data={convertedAceData} title={"Gulcose Levels (breathanalyzer)"} unit="mg/dL" label={true} />);
-        const darkModeRef = ref(database, 'users/' + authen.currentUser.uid);
-        onValue(darkModeRef, (snapshot) => {
-          const data = snapshot.val();
-          if (data.settings != null) {
-            setDark(data.settings.isDarkMode);
-          }
-        })
+      const unsub = () => {
+        setReload(!reload);
       }
-      return () => unsubscribe();
-    },
-    ))
-
-  onAuthStateChanged(authen, (user) => {
-    const unsub = () => { setAceGraph(<BloodSugarGraph width={vw * .65} data={convertedAceData} title={"Gulcose Levels (breathanalyzer)"} unit="mg/dL" label={true} />) };
-    return () => unsub();
-  });
-
+      return () => unsub();
+    },)
+  )
   const background = () => {
     if (dark) {
       return (<DarkTreeSVG />);
@@ -94,7 +105,7 @@ export default (props) => {
   }
 
   return (
-    <View dark={dark} style={home.container}>
+    <View rel={reload} dark={dark} style={home.container}>
       <View style={home.backgroundContainer}>
         {background()}
       </View>
